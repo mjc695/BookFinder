@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background: url(backgroundBook.jpg);
 }
 
 a {
@@ -18,4 +19,52 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.navbar {
+  display: flex;
+  padding: 15px;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.Icons {
+  display: flex;
+  align-content: center;
+}
+
+.poweredText {
+  font-style: oblique;
+  padding: 5px;
+}
+
+.AppName {
+  font-family: 'Rockwell';
+  color: rgb(3, 12, 97);
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.searchInput {
+  width: 500px;
+  height: 25px;
+}
+.searchForm {
+  height: 30px;
+  width: 80px;
+}
+
+.mag-glass {
+  position: relative;
+  bottom: -5.5px;
+}
+
+.searchByText {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }

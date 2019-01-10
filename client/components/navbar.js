@@ -1,47 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = () => (
   <div>
-    <h1>AmexInterview</h1>
-    <nav>
-      <div>
-        {/* The navbar will show these links before you log in */}
-        <Link to="/BookSearch">BookSearch</Link>
-        <Link to="/singleBook">Test Single View</Link>
-        <Link to="/Results">Results</Link>
+    <div className="navbar">
+      <div className="Icons">
+        <img src="search-icon.png" width={80} height={80} />
+        <nav>
+          <Link to="/home">
+            <h1 className="AppName">BookFinder</h1>
+          </Link>
+        </nav>
       </div>
-    </nav>
-    <hr />
+      <div className="Icons">
+        <p className="poweredText">Powered By </p>
+        <img src="OpenLibrary.png" width={200} height={80} />
+      </div>
+    </div>
   </div>
 )
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    handleClick() {
-      dispatch(logout())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(Navbar)
-
-/**
- * PROP TYPES
- */
-Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
+export default Navbar

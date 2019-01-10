@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import axios from 'axios'
-import SearchBarReusable from './Reusable/SearchBarReusable'
 import SearchBar from './Reusable/SearchBar'
-import SearchResults from './SearchResults'
-import {isbn, byAuthor, bytitle, addBook, setSearchType} from '../store'
+import {isbn, byAuthor, bytitle} from '../store'
 import history from '../history'
 
 class BookSearch extends Component {
@@ -34,7 +31,7 @@ class BookSearch extends Component {
 
   render() {
     return (
-      <div>
+      <div className="searchBar">
         <SearchBar
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
