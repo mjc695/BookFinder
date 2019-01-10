@@ -137,13 +137,7 @@ var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_mo
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
-
-var _SearchBarReusable = _interopRequireDefault(__webpack_require__(/*! ./Reusable/SearchBarReusable */ "./client/components/Reusable/SearchBarReusable.js"));
-
 var _SearchBar = _interopRequireDefault(__webpack_require__(/*! ./Reusable/SearchBar */ "./client/components/Reusable/SearchBar.js"));
-
-var _SearchResults = _interopRequireDefault(__webpack_require__(/*! ./SearchResults */ "./client/components/SearchResults.js"));
 
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
@@ -575,53 +569,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./client/components/Reusable/SearchBarReusable.js":
-/*!*********************************************************!*\
-  !*** ./client/components/Reusable/SearchBarReusable.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SearchBarReusable = function SearchBarReusable(props) {
-  var handleSubmit = props.handleSubmit,
-      handleChange = props.handleChange,
-      state = props.state,
-      searchString = props.searchString; // const bookKeys = Object.keys(state.bookData)
-
-  return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("form", {
-    onSubmit: handleSubmit
-  }, _react.default.createElement("h3", null, "Search by ", searchString, ":"), _react.default.createElement("select", null, _react.default.createElement("option", {
-    name: "title",
-    value: "title"
-  }, "Title"), _react.default.createElement("option", null, "Author"), _react.default.createElement("option", null, "ISBN")), _react.default.createElement("input", {
-    name: searchString,
-    value: state[searchString],
-    onChange: handleChange
-  }), _react.default.createElement("button", {
-    type: "button",
-    onClick: function onClick() {
-      return handleSubmit(event, searchString);
-    }
-  }, "Search!"))), console.log(state.bookData), _react.default.createElement("h3", null, "Search Results above! ^_^"));
-};
-
-var _default = SearchBarReusable;
-exports.default = _default;
-
-/***/ }),
-
 /***/ "./client/components/SearchResults.js":
 /*!********************************************!*\
   !*** ./client/components/SearchResults.js ***!
@@ -778,112 +725,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./client/components/auth-form.js":
-/*!****************************************!*\
-  !*** ./client/components/auth-form.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Signup = exports.Login = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
-
-var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * COMPONENT
- */
-var AuthForm = function AuthForm(props) {
-  var name = props.name,
-      displayName = props.displayName,
-      handleSubmit = props.handleSubmit,
-      error = props.error;
-  return _react.default.createElement("div", null, _react.default.createElement("form", {
-    onSubmit: handleSubmit,
-    name: name
-  }, _react.default.createElement("div", null, _react.default.createElement("label", {
-    htmlFor: "email"
-  }, _react.default.createElement("small", null, "Email")), _react.default.createElement("input", {
-    name: "email",
-    type: "text"
-  })), _react.default.createElement("div", null, _react.default.createElement("label", {
-    htmlFor: "password"
-  }, _react.default.createElement("small", null, "Password")), _react.default.createElement("input", {
-    name: "password",
-    type: "password"
-  })), _react.default.createElement("div", null, _react.default.createElement("button", {
-    type: "submit"
-  }, displayName)), error && error.response && _react.default.createElement("div", null, " ", error.response.data, " ")), _react.default.createElement("a", {
-    href: "/auth/google"
-  }, displayName, " with Google"));
-};
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-
-
-var mapLogin = function mapLogin(state) {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error
-  };
-};
-
-var mapSignup = function mapSignup(state) {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.user.error
-  };
-};
-
-var mapDispatch = function mapDispatch(dispatch) {
-  return {
-    handleSubmit: function handleSubmit(evt) {
-      evt.preventDefault();
-      var formName = evt.target.name;
-      var email = evt.target.email.value;
-      var password = evt.target.password.value;
-      dispatch((0, _store.auth)(email, password, formName));
-    }
-  };
-};
-
-var Login = (0, _reactRedux.connect)(mapLogin, mapDispatch)(AuthForm);
-exports.Login = Login;
-var Signup = (0, _reactRedux.connect)(mapSignup, mapDispatch)(AuthForm);
-/**
- * PROP TYPES
- */
-
-exports.Signup = Signup;
-AuthForm.propTypes = {
-  name: _propTypes.default.string.isRequired,
-  displayName: _propTypes.default.string.isRequired,
-  handleSubmit: _propTypes.default.func.isRequired,
-  error: _propTypes.default.object
-};
-
-/***/ }),
-
 /***/ "./client/components/index.js":
 /*!************************************!*\
   !*** ./client/components/index.js ***!
@@ -901,24 +742,6 @@ Object.defineProperty(exports, "Navbar", {
   enumerable: true,
   get: function get() {
     return _navbar.default;
-  }
-});
-Object.defineProperty(exports, "UserHome", {
-  enumerable: true,
-  get: function get() {
-    return _userHome.default;
-  }
-});
-Object.defineProperty(exports, "Login", {
-  enumerable: true,
-  get: function get() {
-    return _authForm.Login;
-  }
-});
-Object.defineProperty(exports, "Signup", {
-  enumerable: true,
-  get: function get() {
-    return _authForm.Signup;
   }
 });
 Object.defineProperty(exports, "BookSearch", {
@@ -941,10 +764,6 @@ Object.defineProperty(exports, "Results", {
 });
 
 var _navbar = _interopRequireDefault(__webpack_require__(/*! ./navbar */ "./client/components/navbar.js"));
-
-var _userHome = _interopRequireDefault(__webpack_require__(/*! ./user-home */ "./client/components/user-home.js"));
-
-var _authForm = __webpack_require__(/*! ./auth-form */ "./client/components/auth-form.js");
 
 var _BookSearch = _interopRequireDefault(__webpack_require__(/*! ./BookSearch */ "./client/components/BookSearch.js"));
 
@@ -973,113 +792,18 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Navbar = function Navbar(_ref) {
-  var handleClick = _ref.handleClick,
-      isLoggedIn = _ref.isLoggedIn;
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "AmexInterview"), _react.default.createElement("nav", null, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/BookSearch"
-  }, "BookSearch"), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/singleBook"
-  }, "Test Single View"), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/Results"
-  }, "Results"))), _react.default.createElement("hr", null));
-};
-/**
- * CONTAINER
- */
-
-
-var mapState = function mapState(state) {
-  return {
-    isLoggedIn: !!state.user.id
-  };
+var Navbar = function Navbar() {
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "BookFinder"), _react.default.createElement("nav", null, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/Home"
+  }, "Find a Book!"))));
 };
 
-var mapDispatch = function mapDispatch(dispatch) {
-  return {
-    handleClick: function handleClick() {
-      dispatch((0, _store.logout)());
-    }
-  };
-};
-
-var _default = (0, _reactRedux.connect)(mapState, mapDispatch)(Navbar);
-/**
- * PROP TYPES
- */
-
-
+var _default = Navbar;
 exports.default = _default;
-Navbar.propTypes = {
-  handleClick: _propTypes.default.func.isRequired,
-  isLoggedIn: _propTypes.default.bool.isRequired
-};
-
-/***/ }),
-
-/***/ "./client/components/user-home.js":
-/*!****************************************!*\
-  !*** ./client/components/user-home.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.UserHome = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * COMPONENT
- */
-var UserHome = function UserHome(props) {
-  var email = props.email;
-  return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Welcome, ", email));
-};
-/**
- * CONTAINER
- */
-
-
-exports.UserHome = UserHome;
-
-var mapState = function mapState(state) {
-  return {
-    email: state.user.email
-  };
-};
-
-var _default = (0, _reactRedux.connect)(mapState)(UserHome);
-/**
- * PROP TYPES
- */
-
-
-exports.default = _default;
-UserHome.propTypes = {
-  email: _propTypes.default.string
-};
 
 /***/ }),
 
@@ -1168,13 +892,7 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
-
 var _components = __webpack_require__(/*! ./components */ "./client/components/index.js");
-
-var _store = __webpack_require__(/*! ./store */ "./client/store/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -1196,9 +914,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-/**
- * COMPONENT
- */
 var Routes =
 /*#__PURE__*/
 function (_Component) {
@@ -1211,21 +926,9 @@ function (_Component) {
   }
 
   _createClass(Routes, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.loadInitialData();
-    }
-  }, {
     key: "render",
     value: function render() {
-      var isLoggedIn = this.props.isLoggedIn;
       return _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
-        path: "/login",
-        component: _components.Login
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/signup",
-        component: _components.Signup
-      }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/Home",
         component: _components.BookSearch
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -1234,10 +937,7 @@ function (_Component) {
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/singleBook",
         component: _components.SinglePageView
-      }), isLoggedIn && _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
-        path: "/home",
-        component: _components.UserHome
-      })), _react.default.createElement(_reactRouterDom.Route, {
+      }), _react.default.createElement(_reactRouterDom.Route, {
         component: _components.Login
       }));
     }
@@ -1245,40 +945,10 @@ function (_Component) {
 
   return Routes;
 }(_react.Component);
-/**
- * CONTAINER
- */
 
-
-var mapState = function mapState(state) {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
-  };
-};
-
-var mapDispatch = function mapDispatch(dispatch) {
-  return {
-    loadInitialData: function loadInitialData() {
-      dispatch((0, _store.me)());
-    }
-  };
-}; // The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-
-
-var _default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapState, mapDispatch)(Routes));
-/**
- * PROP TYPES
- */
-
+var _default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, null)(Routes));
 
 exports.default = _default;
-Routes.propTypes = {
-  loadInitialData: _propTypes.default.func.isRequired,
-  isLoggedIn: _propTypes.default.bool.isRequired
-};
 
 /***/ }),
 
@@ -1290,12 +960,6 @@ Routes.propTypes = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// import io from 'socket.io-client'
-// const socket = io(window.location.origin)
-// socket.on('connect', () => {
-//   console.log('Connected!')
-// })
-// export default socket
 
 
 /***/ }),
@@ -1541,19 +1205,6 @@ var _reduxThunk = _interopRequireDefault(__webpack_require__(/*! redux-thunk */ 
 
 var _reduxDevtoolsExtension = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 
-var _user = _interopRequireWildcard(__webpack_require__(/*! ./user */ "./client/store/user.js"));
-
-Object.keys(_user).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _user[key];
-    }
-  });
-});
-
 var _bookData = _interopRequireWildcard(__webpack_require__(/*! ./bookData */ "./client/store/bookData.js"));
 
 Object.keys(_bookData).forEach(function (key) {
@@ -1585,7 +1236,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducer = (0, _redux.combineReducers)({
-  user: _user.default,
   books: _bookData.default,
   singleBook: _singleBook.default
 });
@@ -1670,231 +1320,6 @@ function _default() {
       return _objectSpread({}, state, {
         book: {}
       });
-
-    default:
-      return state;
-  }
-}
-
-/***/ }),
-
-/***/ "./client/store/user.js":
-/*!******************************!*\
-  !*** ./client/store/user.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _default;
-exports.logout = exports.auth = exports.me = void 0;
-
-var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
-
-var _history = _interopRequireDefault(__webpack_require__(/*! ../history */ "./client/history.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-/**
- * ACTION TYPES
- */
-var GET_USER = 'GET_USER';
-var REMOVE_USER = 'REMOVE_USER';
-/**
- * INITIAL STATE
- */
-
-var defaultUser = {};
-/**
- * ACTION CREATORS
- */
-
-var getUser = function getUser(user) {
-  return {
-    type: GET_USER,
-    user: user
-  };
-};
-
-var removeUser = function removeUser() {
-  return {
-    type: REMOVE_USER
-  };
-};
-/**
- * THUNK CREATORS
- */
-
-
-var me = function me() {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(dispatch) {
-        var res;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _axios.default.get('/auth/me');
-
-              case 3:
-                res = _context.sent;
-                dispatch(getUser(res.data || defaultUser));
-                _context.next = 10;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                console.error(_context.t0);
-
-              case 10:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[0, 7]]);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }()
-  );
-};
-
-exports.me = me;
-
-var auth = function auth(email, password, method) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref2 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(dispatch) {
-        var res;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return _axios.default.post("/auth/".concat(method), {
-                  email: email,
-                  password: password
-                });
-
-              case 3:
-                res = _context2.sent;
-                _context2.next = 9;
-                break;
-
-              case 6:
-                _context2.prev = 6;
-                _context2.t0 = _context2["catch"](0);
-                return _context2.abrupt("return", dispatch(getUser({
-                  error: _context2.t0
-                })));
-
-              case 9:
-                try {
-                  dispatch(getUser(res.data));
-
-                  _history.default.push('/home');
-                } catch (dispatchOrHistoryErr) {
-                  console.error(dispatchOrHistoryErr);
-                }
-
-              case 10:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[0, 6]]);
-      }));
-
-      return function (_x2) {
-        return _ref2.apply(this, arguments);
-      };
-    }()
-  );
-};
-
-exports.auth = auth;
-
-var logout = function logout() {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref3 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3(dispatch) {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
-                return _axios.default.post('/auth/logout');
-
-              case 3:
-                dispatch(removeUser());
-
-                _history.default.push('/login');
-
-                _context3.next = 10;
-                break;
-
-              case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](0);
-                console.error(_context3.t0);
-
-              case 10:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[0, 7]]);
-      }));
-
-      return function (_x3) {
-        return _ref3.apply(this, arguments);
-      };
-    }()
-  );
-};
-/**
- * REDUCER
- */
-
-
-exports.logout = logout;
-
-function _default() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultUser;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case GET_USER:
-      return action.user;
-
-    case REMOVE_USER:
-      return defaultUser;
 
     default:
       return state;
