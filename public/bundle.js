@@ -696,6 +696,8 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -730,12 +732,19 @@ function (_Component) {
   }
 
   _createClass(SinglePageView, [{
+    key: "openNewTab",
+    value: function openNewTab(url) {
+      var win = window.open(url, '_blank');
+      win.focus();
+    }
+  }, {
     key: "render",
     value: function render() {
       console.log('singleBook:', this.props.singleBook);
       var book = this.props.singleBook.book;
 
       if (book && book.title) {
+        if (!book.url) book.url = "https://openlibrary.org".concat(book.key);
         if (book.first_publish_year) book.publish_date = book.first_publish_year;
         return _react.default.createElement("div", {
           className: "singlePageWrap"
@@ -747,7 +756,12 @@ function (_Component) {
           className: "SearchAuthors"
         }, "by ", book.author_name) : null, _react.default.createElement("div", {
           className: "publishDate"
-        }, book.publish_date ? _react.default.createElement("p", null, "Published in : ", book.publish_date) : _react.default.createElement("p", null, "No Publish date available"))));
+        }, book.publish_date ? _react.default.createElement("p", null, "Published in : ", book.publish_date) : _react.default.createElement("p", null, "No Publish date available"), _react.default.createElement("button", {
+          type: "button"
+        }, _react.default.createElement("a", {
+          href: book.url,
+          target: "_blank"
+        }, "Book in Open Library Webiste")))));
       } else {
         this.props.history.push('/Home');
         return _react.default.createElement("div", null, _react.default.createElement("h3", {
