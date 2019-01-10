@@ -102,6 +102,7 @@ form div {
 }
 
 .textPadding {
+  font-family: fantasy;
   display: flex;
   margin: 100px;
   justify-content: center;
