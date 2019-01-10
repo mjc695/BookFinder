@@ -500,18 +500,19 @@ var ListedBook = function ListedBook(props) {
   var book = props.book,
       addBook = props.addBook;
   return _react.default.createElement("div", {
+    className: "searchResults",
     onClick: function onClick() {
       return addBook(book);
     }
   }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/singleBook"
   }, _react.default.createElement("div", null, _react.default.createElement("img", {
-    src: book.cover && book.cover.small
-  }), _react.default.createElement("p", {
+    src: book.cover ? book.cover.small : 'noImage.png'
+  }), _react.default.createElement("div", null, _react.default.createElement("p", {
     className: "SearchTitles"
   }, book.title), book.author_name ? _react.default.createElement("p", {
     className: "SearchAuthors"
-  }, "by ", book.author_name) : null)));
+  }, "by ", book.author_name) : _react.default.createElement("p", null, "No author available")))));
 };
 
 var _default = ListedBook;
@@ -810,15 +811,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Navbar = function Navbar() {
   return _react.default.createElement("div", null, _react.default.createElement("div", {
     className: "navbar"
+  }, _react.default.createElement("nav", null, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/home"
   }, _react.default.createElement("div", {
     className: "Icons"
   }, _react.default.createElement("img", {
     src: "search-icon.png",
-    width: 80,
+    width: 90,
     height: 80
-  }), _react.default.createElement("nav", null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/home"
-  }, _react.default.createElement("h1", {
+  }), _react.default.createElement("h1", {
     className: "AppName"
   }, "BookFinder")))), _react.default.createElement("div", {
     className: "Icons"
