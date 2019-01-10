@@ -7,7 +7,6 @@ const SearchBar = props => {
       <form onSubmit={handleSubmit}>
         <select
           name="searchType"
-          // defaultValue="Title"
           value={state.searchType}
           onChange={handleChange}
         >

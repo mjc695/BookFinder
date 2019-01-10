@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {func} from 'prop-types'
 
 // ACTION TYPES
 
@@ -57,11 +56,11 @@ export const bytitle = title => async dispatch => {
 export default function(state = defaultBookData, action) {
   switch (action.type) {
     case GET_ISBN:
-      return {...state, isbn: action.isbn}
+      return {...state, result: action.isbn}
     case GET_AUTHOR:
-      return {...state, author: action.author}
+      return {...state, result: action.author}
     case GET_TITLE:
-      return {...state, title: action.title}
+      return {...state, result: action.title}
     default:
       return state
   }

@@ -1,26 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import SearchBarReusable from './SearchBarReusable'
-import SearchBar from './SearchBar'
+import SearchBarReusable from './Reusable/SearchBarReusable'
+import SearchBar from './Reusable/SearchBar'
 import SearchResults from './SearchResults'
-import {isbn, byAuthor, bytitle} from '../store'
+import {isbn, byAuthor, bytitle, addBook, setSearchType} from '../store'
+import history from '../history'
 
 class BookSearch extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      openResults: false,
-      searchedType: '',
-      bookData: {},
       searchString: '',
       searchType: 'Title'
     }
   }
 
   handleChange = evt => {
-    console.log('changing')
-    console.log(evt.target)
     this.setState({[evt.target.name]: evt.target.value})
   }
 
@@ -28,44 +24,22 @@ class BookSearch extends Component {
     event.preventDefault()
     if (this.state.searchType === 'ISBN') {
       await this.props.searchByISBN(this.state.searchString)
-      this.setState({
-        bookData: this.props.isbn,
-        openResults: true,
-        searchedType: 'ISBN'
-      })
-      console.log('this is store state', this.props.isbn)
     } else if (this.state.searchType === 'Author') {
       await this.props.searchByAuthor(this.state.searchString)
-      console.log('this is store state', this.props.authorSearch)
-      this.setState({
-        bookData: this.props.authorSearch,
-        openResults: true,
-        searchedType: 'Author'
-      })
     } else if (this.state.searchType === 'Title') {
       await this.props.searchByTitle(this.state.searchString)
-      console.log('this is store state in title:', this.props.titleSearch)
-      this.setState({
-        bookData: this.props.titleSearch,
-        openResults: true,
-        searchedType: 'Title'
-      })
     }
+    history.push('/Results')
   }
 
   render() {
-    console.log('test for isbn#:', this.state.searchString)
-    console.log('book data:', this.state.bookData)
     return (
       <div>
-        <div>
-          <SearchBar
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            state={this.state}
-          />
-        </div>
-        {this.state.openResults && <SearchResults state={this.state} />}
+        <SearchBar
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          state={this.state}
+        />
       </div>
     )
   }
@@ -73,9 +47,7 @@ class BookSearch extends Component {
 
 const mapState = state => {
   return {
-    isbn: state.books.isbn,
-    authorSearch: state.books.author,
-    titleSearch: state.books.title
+    result: state.books.result
   }
 }
 
