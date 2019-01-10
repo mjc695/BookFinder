@@ -658,9 +658,9 @@ var SearchResults = function SearchResults(props) {
       return _react.default.createElement("div", null, _results.map(function (book, idx) {
         if (true && book.cover_i) {
           book.cover = {};
-          book.cover.small = "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-S.jpg");
-          book.cover.medium = "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-M.jpg");
-          book.cover.large = "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-L.jpg");
+          book.cover.small = "https://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-S.jpg");
+          book.cover.medium = "https://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-M.jpg");
+          book.cover.large = "https://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-L.jpg");
         }
 
         return _react.default.createElement("div", {
@@ -1129,7 +1129,7 @@ var byAuthor = function byAuthor(author) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return _axios.default.get("http://openlibrary.org/search.json?author=".concat(author));
+                return _axios.default.get("https://openlibrary.org/search.json?author=".concat(author));
 
               case 3:
                 res = _context2.sent;
@@ -1173,7 +1173,7 @@ var bytitle = function bytitle(title) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return _axios.default.get("http://openlibrary.org/search.json?type=/type&edition&title=".concat(title));
+                return _axios.default.get("https://openlibrary.org/search.json?type=/type&edition&title=".concat(title));
 
               case 3:
                 res = _context3.sent;

@@ -41,13 +41,13 @@ const SearchResults = props => {
           {results.map((book, idx) => {
             if (true && book.cover_i) {
               book.cover = {}
-              book.cover.small = `http://covers.openlibrary.org/b/ID/${
+              book.cover.small = `https://covers.openlibrary.org/b/ID/${
                 book.cover_i
               }-S.jpg`
-              book.cover.medium = `http://covers.openlibrary.org/b/ID/${
+              book.cover.medium = `https://covers.openlibrary.org/b/ID/${
                 book.cover_i
               }-M.jpg`
-              book.cover.large = `http://covers.openlibrary.org/b/ID/${
+              book.cover.large = `https://covers.openlibrary.org/b/ID/${
                 book.cover_i
               }-L.jpg`
             }
