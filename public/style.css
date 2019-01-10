@@ -68,3 +68,13 @@ form div {
   justify-content: center;
   align-content: center;
 }
+
+.searchResults {
+  display: flex;
+  margin-left: 40px;
+  padding: 20px;
+  align-content: center;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #000000;
+}
