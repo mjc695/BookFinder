@@ -858,11 +858,8 @@ var _store = _interopRequireDefault(__webpack_require__(/*! ./store */ "./client
 
 var _app = _interopRequireDefault(__webpack_require__(/*! ./app */ "./client/app.js"));
 
-__webpack_require__(/*! ./socket */ "./client/socket.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// establishes socket connection
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
 }, _react.default.createElement(_reactRouterDom.Router, {
@@ -949,18 +946,6 @@ function (_Component) {
 var _default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, null)(Routes));
 
 exports.default = _default;
-
-/***/ }),
-
-/***/ "./client/socket.js":
-/*!**************************!*\
-  !*** ./client/socket.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 /***/ }),
 
