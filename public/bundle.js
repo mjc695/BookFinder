@@ -414,10 +414,17 @@ var Results =
 function (_Component) {
   _inherits(Results, _Component);
 
-  function Results() {
+  function Results(props) {
+    var _this;
+
     _classCallCheck(this, Results);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Results).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Results).call(this, props));
+    _this.state = {
+      filterType: '',
+      filterValue: ''
+    };
+    return _this;
   }
 
   _createClass(Results, [{
@@ -499,6 +506,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ListedBook = function ListedBook(props) {
   var book = props.book,
       addBook = props.addBook;
+
+  if (props.isISBN) {
+    book.author_name = book.authors[0].name;
+  }
+
+  if (!book.cover) {
+    book.cover = {
+      small: 'noImage.png',
+      large: 'noImageLarge.png'
+    };
+  }
+
   return _react.default.createElement("div", {
     className: "searchResults",
     onClick: function onClick() {
@@ -507,12 +526,14 @@ var ListedBook = function ListedBook(props) {
   }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/singleBook"
   }, _react.default.createElement("div", null, _react.default.createElement("img", {
-    src: book.cover ? book.cover.small : 'noImage.png'
-  }), _react.default.createElement("div", null, _react.default.createElement("p", {
+    src: book.cover.small
+  })), _react.default.createElement("div", {
+    className: "results-text"
+  }, _react.default.createElement("p", {
     className: "SearchTitles"
-  }, book.title), book.author_name ? _react.default.createElement("p", {
+  }, "Title: ", book.title), book.author_name ? _react.default.createElement("p", {
     className: "SearchAuthors"
-  }, "by ", book.author_name) : _react.default.createElement("p", null, "No author available")))));
+  }, " by ", book.author_name) : _react.default.createElement("p", null, "No author available"))));
 };
 
 var _default = ListedBook;
@@ -607,16 +628,21 @@ var SearchResults = function SearchResults(props) {
       addBook = props.addBook;
 
   if (!state) {
-    return _react.default.createElement("h3", null, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!");
+    return _react.default.createElement("h3", {
+      className: "textPadding"
+    }, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!");
   } else {
     if (!state.docs) {
       var results = state[Object.keys(state)];
 
       if (!results) {
-        return _react.default.createElement("h3", null, "Sorry The book you were looking for was not found. Please try searching for something else.");
+        return _react.default.createElement("h3", {
+          className: "textPadding"
+        }, "Sorry The book you were looking for was not found. Please try searching for something else.");
       }
 
       return _react.default.createElement("div", null, _react.default.createElement(_ListedBook.default, {
+        isISBN: true,
         addBook: addBook,
         book: results
       }));
@@ -624,15 +650,17 @@ var SearchResults = function SearchResults(props) {
       var _results = state.docs;
 
       if (_results.length < 1) {
-        return _react.default.createElement("h3", null, "Sorry The book you were looking for was not found. Please try searching for something else.");
+        return _react.default.createElement("h3", {
+          className: "textPadding"
+        }, "Sorry The book you were looking for was not found. Please try searching for something else.");
       }
 
       return _react.default.createElement("div", null, _results.map(function (book, idx) {
         if (true && book.cover_i) {
           book.cover = {};
-          book.cover.small = "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-S.jpg");
-          book.cover.medium = "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-M.jpg");
-          book.cover.large = "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-L.jpg");
+          book.cover.small = "https://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-S.jpg");
+          book.cover.medium = "https://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-M.jpg");
+          book.cover.large = "https://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-L.jpg");
         }
 
         return _react.default.createElement("div", {
@@ -708,16 +736,23 @@ function (_Component) {
       var book = this.props.singleBook.book;
 
       if (book && book.title) {
-        return _react.default.createElement("div", null, _react.default.createElement("img", {
-          src: "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-L.jpg")
-        }), _react.default.createElement("p", {
+        if (book.first_publish_year) book.publish_date = book.first_publish_year;
+        return _react.default.createElement("div", {
+          className: "singlePageWrap"
+        }, _react.default.createElement("img", {
+          src: book.cover.large
+        }), _react.default.createElement("div", null, _react.default.createElement("p", {
           className: "SearchTitles"
         }, book.title), book.author_name ? _react.default.createElement("p", {
           className: "SearchAuthors"
-        }, "by ", book.author_name) : null);
+        }, "by ", book.author_name) : null, _react.default.createElement("div", {
+          className: "publishDate"
+        }, book.publish_date ? _react.default.createElement("p", null, "Published in : ", book.publish_date) : _react.default.createElement("p", null, "No Publish date available"))));
       } else {
         this.props.history.push('/Home');
-        return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!"));
+        return _react.default.createElement("div", null, _react.default.createElement("h3", {
+          className: "textPadding"
+        }, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!"));
       }
     }
   }]);
@@ -1094,7 +1129,7 @@ var byAuthor = function byAuthor(author) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return _axios.default.get("http://openlibrary.org/search.json?author=".concat(author));
+                return _axios.default.get("https://openlibrary.org/search.json?author=".concat(author));
 
               case 3:
                 res = _context2.sent;
@@ -1138,7 +1173,7 @@ var bytitle = function bytitle(title) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return _axios.default.get("http://openlibrary.org/search.json?type=/type&edition&title=".concat(title));
+                return _axios.default.get("https://openlibrary.org/search.json?type=/type&edition&title=".concat(title));
 
               case 3:
                 res = _context3.sent;

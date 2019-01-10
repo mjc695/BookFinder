@@ -32,7 +32,7 @@ export const isbn = isbnNum => async dispatch => {
 export const byAuthor = author => async dispatch => {
   try {
     const res = await axios.get(
-      `http://openlibrary.org/search.json?author=${author}`
+      `https://openlibrary.org/search.json?author=${author}`
     )
     dispatch(getAuthor(res.data))
   } catch (err) {
@@ -43,7 +43,7 @@ export const byAuthor = author => async dispatch => {
 export const bytitle = title => async dispatch => {
   try {
     const res = await axios.get(
-      `http://openlibrary.org/search.json?type=/type&edition&title=${title}`
+      `https://openlibrary.org/search.json?type=/type&edition&title=${title}`
     )
     dispatch(getTitle(res.data))
   } catch (err) {
