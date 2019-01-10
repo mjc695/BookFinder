@@ -23,7 +23,7 @@ const SearchResults = props => {
       }
       return (
         <div>
-          <ListedBook addBook={addBook} book={results} />
+          <ListedBook isISBN={true} addBook={addBook} book={results} />
         </div>
       )
     } else {

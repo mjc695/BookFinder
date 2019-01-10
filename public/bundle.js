@@ -499,6 +499,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ListedBook = function ListedBook(props) {
   var book = props.book,
       addBook = props.addBook;
+
+  if (props.isISBN) {
+    book.author_name = book.authors[0].name;
+  }
+
+  if (!book.cover) {
+    book.cover = {
+      small: 'noImage.png',
+      large: 'noImageLarge.png'
+    };
+  }
+
   return _react.default.createElement("div", {
     className: "searchResults",
     onClick: function onClick() {
@@ -507,12 +519,14 @@ var ListedBook = function ListedBook(props) {
   }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/singleBook"
   }, _react.default.createElement("div", null, _react.default.createElement("img", {
-    src: book.cover ? book.cover.small : 'noImage.png'
-  }), _react.default.createElement("div", null, _react.default.createElement("p", {
+    src: book.cover.small
+  })), _react.default.createElement("div", {
+    className: "results-text"
+  }, _react.default.createElement("p", {
     className: "SearchTitles"
-  }, book.title), book.author_name ? _react.default.createElement("p", {
+  }, "Title: ", book.title), book.author_name ? _react.default.createElement("p", {
     className: "SearchAuthors"
-  }, "by ", book.author_name) : _react.default.createElement("p", null, "No author available")))));
+  }, " by ", book.author_name) : _react.default.createElement("p", null, "No author available"))));
 };
 
 var _default = ListedBook;
@@ -617,6 +631,7 @@ var SearchResults = function SearchResults(props) {
       }
 
       return _react.default.createElement("div", null, _react.default.createElement(_ListedBook.default, {
+        isISBN: true,
         addBook: addBook,
         book: results
       }));
@@ -708,13 +723,18 @@ function (_Component) {
       var book = this.props.singleBook.book;
 
       if (book && book.title) {
-        return _react.default.createElement("div", null, _react.default.createElement("img", {
-          src: "http://covers.openlibrary.org/b/ID/".concat(book.cover_i, "-L.jpg")
-        }), _react.default.createElement("p", {
+        if (book.first_publish_year) book.publish_date = book.first_publish_year;
+        return _react.default.createElement("div", {
+          className: "singlePageWrap"
+        }, _react.default.createElement("img", {
+          src: book.cover.large
+        }), _react.default.createElement("div", null, _react.default.createElement("p", {
           className: "SearchTitles"
         }, book.title), book.author_name ? _react.default.createElement("p", {
           className: "SearchAuthors"
-        }, "by ", book.author_name) : null);
+        }, "by ", book.author_name) : null, _react.default.createElement("div", {
+          className: "publishDate"
+        }, book.publish_date ? _react.default.createElement("p", null, "Published in : ", book.publish_date) : _react.default.createElement("p", null, "No Publish date available"))));
       } else {
         this.props.history.push('/Home');
         return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!"));
