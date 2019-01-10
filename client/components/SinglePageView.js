@@ -3,10 +3,6 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 class SinglePageView extends Component {
-  openNewTab(url) {
-    const win = window.open(url, '_blank')
-    win.focus()
-  }
   render() {
     console.log('singleBook:', this.props.singleBook)
     const book = this.props.singleBook.book
@@ -27,18 +23,12 @@ class SinglePageView extends Component {
               ) : (
                 <p>No Publish date available</p>
               )}
-              {/* <p
-                className="clickableLink"
-                onClick={() => this.openNewTab(book.url)}
-              >
-                Book in Open Library Website
-              </p> */}
+
               <button type="button">
                 <a href={book.url} target="_blank">
                   Book in Open Library Webiste
                 </a>
               </button>
-              {/* <Link to={book.url}>Book in Open Library Website</Link> */}
             </div>
           </div>
         </div>
