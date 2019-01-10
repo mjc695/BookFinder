@@ -259,7 +259,9 @@ function (_Component) {
   _createClass(BookSearch, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(_SearchBar.default, {
+      return _react.default.createElement("div", {
+        className: "searchBar"
+      }, _react.default.createElement(_SearchBar.default, {
         handleChange: this.handleChange,
         handleSubmit: this.handleSubmit,
         state: this.state
@@ -542,7 +544,10 @@ var SearchBar = function SearchBar(props) {
       state = props.state;
   return _react.default.createElement("div", null, _react.default.createElement("form", {
     onSubmit: handleSubmit
-  }, _react.default.createElement("select", {
+  }, _react.default.createElement("div", null, _react.default.createElement("p", {
+    className: "searchByText"
+  }, "Search for a book below ^_^"), _react.default.createElement("select", {
+    className: "searchForm",
     name: "searchType",
     value: state.searchType,
     onChange: handleChange
@@ -553,15 +558,21 @@ var SearchBar = function SearchBar(props) {
   }, "ISBN"), _react.default.createElement("option", {
     value: "Author"
   }, "Author")), _react.default.createElement("input", {
+    className: "searchInput",
     name: "searchString",
     value: state.searchString,
     onChange: handleChange
   }), _react.default.createElement("button", {
+    className: "mag-glass",
     type: "button",
     onClick: function onClick() {
       return handleSubmit(event);
     }
-  }, "Search")));
+  }, _react.default.createElement("img", {
+    src: "mag-glass.jpg",
+    height: 23,
+    width: 23
+  })))));
 };
 
 var _default = SearchBar;
@@ -797,9 +808,27 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Navbar = function Navbar() {
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "BookFinder"), _react.default.createElement("nav", null, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/Home"
-  }, "Find a Book!"))));
+  return _react.default.createElement("div", null, _react.default.createElement("div", {
+    className: "navbar"
+  }, _react.default.createElement("div", {
+    className: "Icons"
+  }, _react.default.createElement("img", {
+    src: "search-icon.png",
+    width: 80,
+    height: 80
+  }), _react.default.createElement("nav", null, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/home"
+  }, _react.default.createElement("h1", {
+    className: "AppName"
+  }, "BookFinder")))), _react.default.createElement("div", {
+    className: "Icons"
+  }, _react.default.createElement("p", {
+    className: "poweredText"
+  }, "Powered By "), _react.default.createElement("img", {
+    src: "OpenLibrary.png",
+    width: 200,
+    height: 80
+  }))));
 };
 
 var _default = Navbar;
@@ -935,7 +964,7 @@ function (_Component) {
         path: "/singleBook",
         component: _components.SinglePageView
       }), _react.default.createElement(_reactRouterDom.Route, {
-        component: _components.Login
+        component: _components.BookSearch
       }));
     }
   }]);

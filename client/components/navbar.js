@@ -3,12 +3,20 @@ import {Link} from 'react-router-dom'
 
 const Navbar = () => (
   <div>
-    <h1>BookFinder</h1>
-    <nav>
-      <div>
-        <Link to="/Home">Find a Book!</Link>
+    <div className="navbar">
+      <div className="Icons">
+        <img src="search-icon.png" width={80} height={80} />
+        <nav>
+          <Link to="/home">
+            <h1 className="AppName">BookFinder</h1>
+          </Link>
+        </nav>
       </div>
-    </nav>
+      <div className="Icons">
+        <p className="poweredText">Powered By </p>
+        <img src="OpenLibrary.png" width={200} height={80} />
+      </div>
+    </div>
   </div>
 )
 

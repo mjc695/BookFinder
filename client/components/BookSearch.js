@@ -31,7 +31,7 @@ class BookSearch extends Component {
 
   render() {
     return (
-      <div>
+      <div className="searchBar">
         <SearchBar
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
