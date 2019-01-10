@@ -5,6 +5,13 @@ import {addBook} from '../store'
 import BookSearch from './BookSearch'
 
 class Results extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      filterType: '',
+      filterValue: ''
+    }
+  }
   render() {
     return (
       <div>

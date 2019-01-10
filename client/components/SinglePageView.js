@@ -30,7 +30,7 @@ class SinglePageView extends Component {
       this.props.history.push('/Home')
       return (
         <div>
-          <h3>
+          <h3 className="textPadding">
             Sorry the selection you have been made is misplaced, please go back
             and select a book, Thank you!
           </h3>

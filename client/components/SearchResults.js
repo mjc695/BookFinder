@@ -5,7 +5,7 @@ const SearchResults = props => {
   const {state, addBook} = props
   if (!state) {
     return (
-      <h3>
+      <h3 className="textPadding">
         Sorry the selection you have been made is misplaced, please go back and
         select a book, Thank you!
       </h3>
@@ -15,7 +15,7 @@ const SearchResults = props => {
       const results = state[Object.keys(state)]
       if (!results) {
         return (
-          <h3>
+          <h3 className="textPadding">
             Sorry The book you were looking for was not found. Please try
             searching for something else.
           </h3>
@@ -30,7 +30,7 @@ const SearchResults = props => {
       const results = state.docs
       if (results.length < 1) {
         return (
-          <h3>
+          <h3 className="textPadding">
             Sorry The book you were looking for was not found. Please try
             searching for something else.
           </h3>

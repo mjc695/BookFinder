@@ -100,3 +100,10 @@ form div {
   display: flex;
   margin: 50px;
 }
+
+.textPadding {
+  display: flex;
+  margin: 100px;
+  justify-content: center;
+  align-content: center;
+}

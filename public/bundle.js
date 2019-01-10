@@ -414,10 +414,17 @@ var Results =
 function (_Component) {
   _inherits(Results, _Component);
 
-  function Results() {
+  function Results(props) {
+    var _this;
+
     _classCallCheck(this, Results);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Results).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Results).call(this, props));
+    _this.state = {
+      filterType: '',
+      filterValue: ''
+    };
+    return _this;
   }
 
   _createClass(Results, [{
@@ -621,13 +628,17 @@ var SearchResults = function SearchResults(props) {
       addBook = props.addBook;
 
   if (!state) {
-    return _react.default.createElement("h3", null, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!");
+    return _react.default.createElement("h3", {
+      className: "textPadding"
+    }, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!");
   } else {
     if (!state.docs) {
       var results = state[Object.keys(state)];
 
       if (!results) {
-        return _react.default.createElement("h3", null, "Sorry The book you were looking for was not found. Please try searching for something else.");
+        return _react.default.createElement("h3", {
+          className: "textPadding"
+        }, "Sorry The book you were looking for was not found. Please try searching for something else.");
       }
 
       return _react.default.createElement("div", null, _react.default.createElement(_ListedBook.default, {
@@ -639,7 +650,9 @@ var SearchResults = function SearchResults(props) {
       var _results = state.docs;
 
       if (_results.length < 1) {
-        return _react.default.createElement("h3", null, "Sorry The book you were looking for was not found. Please try searching for something else.");
+        return _react.default.createElement("h3", {
+          className: "textPadding"
+        }, "Sorry The book you were looking for was not found. Please try searching for something else.");
       }
 
       return _react.default.createElement("div", null, _results.map(function (book, idx) {
@@ -737,7 +750,9 @@ function (_Component) {
         }, book.publish_date ? _react.default.createElement("p", null, "Published in : ", book.publish_date) : _react.default.createElement("p", null, "No Publish date available"))));
       } else {
         this.props.history.push('/Home');
-        return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!"));
+        return _react.default.createElement("div", null, _react.default.createElement("h3", {
+          className: "textPadding"
+        }, "Sorry the selection you have been made is misplaced, please go back and select a book, Thank you!"));
       }
     }
   }]);
